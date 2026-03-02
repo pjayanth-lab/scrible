@@ -1,0 +1,80 @@
+<canvas id="canvas"></canvas>
+
+<script>
+//place drawing on the canvas
+    const canvas = document.getElementById("canvas");
+    console.log(canvas)
+
+    const cv = canvas.getContext("2d");
+    console.log(cv);
+
+// place for modifing the canvas 
+    canvas.width = 500;
+    canvas.height = 500;
+    cv.fillStyle = "black";
+    cv.fillRect(0, 0, canvas.width, canvas.height);
+
+
+
+
+
+// getting mouse cordinates
+    let mouseclick = false;
+    let mousex;
+    let mousey;
+    console.log(mouseclick);
+    addEventListener("mousedown", function(e){
+        mouseclick = true;
+        mousex = e.clientX;
+        mousey = e.clientY;
+            console.log(mouseclick);
+
+        
+        
+
+
+    })
+
+    addEventListener("mouseup", function(ev){
+
+        mouseclick = false;
+        console.log(mouseclick)
+
+        
+
+    })
+
+    addEventListener("mousemove", function draw(e) {
+        
+        if(mouseclick == true) {
+
+            cv.strokeStyle = '#569DBE';
+            cv.lineWidth = 10;
+
+    // draw a red line
+            cv.beginPath();
+            cv.lineCap = "round"
+            cv.moveTo(mousex, mousey);
+            cv.lineTo(e.offsetX, e.offsetY);
+            cv.stroke();
+            mousex = e.offsetX;
+            mousey = e.offsetY;
+
+
+        }
+    });
+
+   
+
+
+
+
+
+
+
+
+
+    
+</script>
+
+
