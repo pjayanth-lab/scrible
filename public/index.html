@@ -1,5 +1,11 @@
 <canvas id="canvas"></canvas>
 
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io();
+</script>
+
+
 <script>
 //place drawing on the canvas
     const canvas = document.getElementById("canvas");
@@ -19,15 +25,16 @@
 
 
 // getting mouse cordinates
-    let mouseclick = false;
+    let mouseclick = 0;
     let mousex;
     let mousey;
     console.log(mouseclick);
     addEventListener("mousedown", function(e){
-        mouseclick = true;
-        mousex = e.clientX;
-        mousey = e.clientY;
-            console.log(mouseclick);
+        mouseclick = 1;
+        mousex = Number(e.clientX);
+        mousey = Number(e.clientY);
+        
+        
 
         
         
@@ -37,17 +44,20 @@
 
     addEventListener("mouseup", function(ev){
 
-        mouseclick = false;
-        console.log(mouseclick)
+        mouseclick = 0;
 
         
 
     })
 
     addEventListener("mousemove", function draw(e) {
-        
-        if(mouseclick == true) {
-
+        let x1 = e.offsetX;
+        let y1 = e.offsetY;
+        if(mouseclick == 1) {
+        let x = [mousex, mousey, x1, y1, mouseclick];
+        //console.log(x);
+        socket.emit("draw", x);
+        //console.log("the draw got send")
             cv.strokeStyle = '#569DBE';
             cv.lineWidth = 10;
 
@@ -56,9 +66,11 @@
             cv.lineCap = "round"
             cv.moveTo(mousex, mousey);
             cv.lineTo(e.offsetX, e.offsetY);
+
             cv.stroke();
             mousex = e.offsetX;
             mousey = e.offsetY;
+        
 
 
         }
@@ -76,5 +88,7 @@
 
     
 </script>
+
+
 
 

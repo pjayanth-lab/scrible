@@ -1,0 +1,52 @@
+<canvas id="canvas2"></canvas>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+
+    // place to create a canvas
+    const canvas = document.getElementById("canvas2");
+    console.log(canvas)
+
+    const cv = canvas.getContext("2d");
+    console.log(cv);
+
+// place for modifing the canvas 
+    canvas.width = 500;
+    canvas.height = 500;
+    cv.fillStyle = "black";
+    cv.fillRect(0, 0, 500, 500);
+
+
+
+</script>
+<script>
+
+    const socket = io();
+</script>
+
+<script>
+    socket.on("project", (x) => {
+
+        mousex = x[0];
+        mousey = x[1];
+        k = x[2];
+        k2 = x[3];
+        
+
+         cv.strokeStyle = '#569DBE';
+            cv.lineWidth = 10;
+
+    // draw a red line
+            cv.beginPath();
+            cv.lineCap = "round"
+            cv.moveTo(mousex, mousey);
+            cv.lineTo(k, k2);
+
+            cv.stroke();
+            mousex = k;
+            mousey = k2;
+        
+
+        
+        
+        })
+</script>
